@@ -1,0 +1,24 @@
+﻿<Page x:Class="BDAdmin.FichierPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:BDAdmin"
+      mc:Ignorable="d"
+      Height="1080" Width="1920"
+        DataContext="{Binding Fichiers, Source={StaticResource Locator}}"
+      >
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*"></RowDefinition>
+            <RowDefinition Height="6*"></RowDefinition>
+            <RowDefinition Height="1*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid Background="OrangeRed" Grid.Row="0">
+            <Button Command="{Binding GoBackPage}" HorizontalAlignment="Left" Background="Transparent">
+                <Image Source="/circled-left.png"></Image>
+            </Button>
+        </Grid>
+        <Border Background="OrangeRed" Grid.Row="2"></Border>
+    </Grid>
+</Page>
