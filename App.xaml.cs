@@ -5,6 +5,7 @@ using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
+using BDAdmin.ViewModel;
 using Business;
 
 namespace BDAdmin
@@ -14,5 +15,7 @@ namespace BDAdmin
     /// </summary>
     public partial class App : Application
     {
+        
+
     }
 }

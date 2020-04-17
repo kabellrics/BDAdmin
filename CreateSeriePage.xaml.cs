@@ -22,16 +22,17 @@ namespace BDAdmin
     /// </summary>
     public partial class CreateSeriePage : Page
     {
+        CreateSerieViewModel viewModel;
         public CreateSeriePage()
         {
             InitializeComponent();
+            viewModel = this.DataContext as CreateSerieViewModel;
         }
-
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            var viewModel = this.DataContext as CreateSerieViewModel;
+            //var viewModel = this.DataContext as CreateSerieViewModel;
             OpenFileDialog openFileDialog = new OpenFileDialog();
-            openFileDialog.Filter = "Img files (*.jpg)|*.jpg";
+            openFileDialog.Filter = "Img files (*.jpg;*.png)|*.jpg;*.png";
             openFileDialog.Multiselect = false;
             if (openFileDialog.ShowDialog() == true)
                 viewModel.ImgPath = openFileDialog.FileName;

@@ -27,7 +27,7 @@ namespace BDAdmin.ViewModel
                     ?? (_loadedCommand = new RelayCommand(
                     () =>
                     {
-                        _navigationService.NavigateTo("Home",null);
+                        _navigationService.NavigateTo("Splash", null);
                     }));
             }
         }

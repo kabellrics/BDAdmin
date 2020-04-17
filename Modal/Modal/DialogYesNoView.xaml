@@ -1,0 +1,32 @@
+﻿<UserControl x:Class="BDAdmin.Modal.Modal.DialogYesNoView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:BDAdmin.Modal.Modal"
+             xmlns:converter="clr-namespace:BDAdmin.Converter"
+             mc:Ignorable="d" 
+             d:DesignHeight="100" d:DesignWidth="300">
+    <Grid Margin="4">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Text="{Binding Message}" Foreground="Black" Margin="10"/>
+        <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right">
+            <Button Content="{Binding ContentButtonYes}" Margin="5"
+                    Command="{Binding YesCommand}"
+                    CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=Window}}"
+                    Visibility="{Binding ContentButtonYes, Converter={StaticResource converter:StringToVisibilityConverter}}"/>
+            <Button Content="{Binding ContentButtonNo}" Margin="5"
+                    Command="{Binding NoCommand}"
+                    CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=Window}}"
+                    Visibility="{Binding ContentButtonNo, Converter={StaticResource converter:StringToVisibilityConverter}}"/>
+            <Button Content="{Binding ContentButtonCancel}" Margin="5"
+                    Command="{Binding CancelCommand}"
+                    CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=Window}}"
+                    Visibility="{Binding ContentButtonCancel, Converter={StaticResource converter:StringToVisibilityConverter}}"/>
+        </StackPanel>
+    </Grid>
+</UserControl>

@@ -13,14 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace BDAdmin
+namespace BDAdmin.Modal.Modal
 {
     /// <summary>
-    /// Logique d'interaction pour FichierPage.xaml
+    /// Logique d'interaction pour DialogYesNoView.xaml
     /// </summary>
-    public partial class FichierPage : Page
+    public partial class DialogYesNoView : UserControl
     {
-        public FichierPage()
+        public DialogYesNoView()
         {
             InitializeComponent();
         }

@@ -10,17 +10,16 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace BDAdmin
+namespace BDAdmin.Modal.Modal
 {
     /// <summary>
-    /// Logique d'interaction pour SeriePage.xaml
+    /// Logique d'interaction pour DialogWindow.xaml
     /// </summary>
-    public partial class SeriePage : Page
+    public partial class DialogWindow : Window
     {
-        public SeriePage()
+        public DialogWindow()
         {
             InitializeComponent();
         }

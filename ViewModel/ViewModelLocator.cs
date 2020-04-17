@@ -13,11 +13,14 @@
 */
 
 using BDAdmin.Navigation;
+using BDAdmin.Modal.Implémentation;
+using BDAdmin.Modal.Interface;
 using Business;
 using CommonServiceLocator;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Ioc;
 using System;
+using BDAdmin.ViewModel.Model;
 //using Microsoft.Practices.ServiceLocation;
 
 namespace BDAdmin.ViewModel
@@ -44,34 +47,70 @@ namespace BDAdmin.ViewModel
             ////    // Create run time view services and models
             ////    SimpleIoc.Default.Register<IDataService, DataService>();
             ////}
+            SimpleIoc.Default.Register<IDialogService, DialogService>();
             SimpleIoc.Default.Register<IBusinessFichier, BusinessFichier>();
             SimpleIoc.Default.Register<IBusinessFile, BusinessFile>();
             SimpleIoc.Default.Register<IBusinessSerie, BusinessSerie>();
+            SimpleIoc.Default.Register<IBusinessBackground, BusinessBackground>();
 
-            SimpleIoc.Default.Register<HomeViewModel>();
             SimpleIoc.Default.Register<MenuViewModel>();
-            SimpleIoc.Default.Register<DisplayingFichierViewModel>();
-            SimpleIoc.Default.Register<DisplayingSerieViewModel>();
             SimpleIoc.Default.Register<FichierViewModel>();
-            SimpleIoc.Default.Register<SeriesViewModel>();
+            SimpleIoc.Default.Register<SerieViewModel>();
+            SimpleIoc.Default.Register<WorkingViewModel>();
             SimpleIoc.Default.Register<CreateSerieViewModel>();
+            SimpleIoc.Default.Register<SplashViewModel>();
             SetupNavigation();
         }
         private static void SetupNavigation()
         {
             FrameNavigationService bHNavigationService = new FrameNavigationService();
-            bHNavigationService.Configure("Fichier", new Uri("../FichierPage.xaml", UriKind.Relative));
             bHNavigationService.Configure("Main", new Uri("../MainWindow.xaml", UriKind.Relative));
             bHNavigationService.Configure("Home", new Uri("../HomePage.xaml", UriKind.Relative));
-            bHNavigationService.Configure("Serie", new Uri("../SeriePage.xaml", UriKind.Relative));
+            bHNavigationService.Configure("Working", new Uri("../Views/WorkingView.xaml", UriKind.Relative));
             bHNavigationService.Configure("CreateSerie", new Uri("../CreateSeriePage.xaml", UriKind.Relative));
+            bHNavigationService.Configure("Splash", new Uri("../Views/SplashView.xaml", UriKind.Relative));
             SimpleIoc.Default.Register<IFrameNavigationService>(() => bHNavigationService);
         }
+        public static IFrameNavigationService NavigationService()
+        {
+            return SimpleIoc.Default.GetInstance<IFrameNavigationService>();
+        }
+        public static IBusinessSerie BusinessSerie()
+        {
+            return SimpleIoc.Default.GetInstance<IBusinessSerie>();
+        }
+        public static IBusinessFichier BusinessFichier()
+        {
+            return SimpleIoc.Default.GetInstance<IBusinessFichier>();
+        }
+        public static IDialogService DialogService()
+        {
+            return SimpleIoc.Default.GetInstance<IDialogService>();
+        }
+        public static IBusinessFile BusinessFile()
+        {
+            return SimpleIoc.Default.GetInstance<IBusinessFile>();
+        }
+        //public static ViewModelLocator Instance
+        //{
+        //    get
+        //    {
+        //        if(_instance == null)
+        //        {
+        //            _instance = new ViewModelLocator();
+        //        }
+        //        return _instance;
+        //    }
+        //}
+        //public static ViewModelLocator _instance = null;
         public CreateSerieViewModel CreateSerie
         {
             get
             {
-                return ServiceLocator.Current.GetInstance<CreateSerieViewModel>();
+                CreateSerieViewModel vm = ServiceLocator.Current.GetInstance<CreateSerieViewModel>();
+                SimpleIoc.Default.Unregister<CreateSerieViewModel>();
+                SimpleIoc.Default.Register<CreateSerieViewModel>();
+                return vm;
             }
         }
         public MenuViewModel Menu
@@ -81,43 +120,22 @@ namespace BDAdmin.ViewModel
                 return ServiceLocator.Current.GetInstance<MenuViewModel>();
             }
         }
-        public HomeViewModel Home
+        public SplashViewModel Splash
         {
             get
             {
-                return ServiceLocator.Current.GetInstance<HomeViewModel>();
+                return ServiceLocator.Current.GetInstance<SplashViewModel>();
             }
         }
-        public FichierViewModel Fichiers
+        public WorkingViewModel Working
         {
             get
             {
-                return ServiceLocator.Current.GetInstance<FichierViewModel>();
-            }
-        }
-        public SeriesViewModel Series
-        {
-            get
-            {
-                return ServiceLocator.Current.GetInstance<SeriesViewModel>();
+                return ServiceLocator.Current.GetInstance<WorkingViewModel>();
             }
         }
 
-        public DisplayingFichierViewModel DisplayingFichier
-        {
-            get
-            {
-                return ServiceLocator.Current.GetInstance<DisplayingFichierViewModel>();
-            }
-        }
 
-        public DisplayingSerieViewModel DisplayingSerie
-        {
-            get
-            {
-                return ServiceLocator.Current.GetInstance<DisplayingSerieViewModel>();
-            }
-        }
         public static void Cleanup()
         {
             // TODO Clear the ViewModels

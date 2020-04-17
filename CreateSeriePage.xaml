@@ -57,11 +57,11 @@
                 </TextBox>
                 <Button Content="Choisir un fichier" Grid.Column="1" Click="Button_Click"></Button>
             </Grid>
-            <Image Grid.Row="4" Grid.Column="1" Stretch="Fill" HorizontalAlignment="Stretch" Source="{Binding ImgByte, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Stretch">
-                <!--<Image.Source>
-                    <BitmapImage Uri CreateOptions="IgnoreImageCache" />
-                </Image.Source>-->
-            </Image>
+            <Border Background="White" Grid.Row="4" Grid.Column="1">
+                <Image Stretch="UniformToFill" HorizontalAlignment="Stretch" Source="{Binding ImgByte, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Stretch">
+                </Image>
+            </Border>
+
             
             <Button Content="Save" Grid.Column="1" Grid.Row="6" HorizontalAlignment="Left" Margin="5" Command="{Binding SavePage}"></Button>
             <Button Content="Cancel" Grid.Column="1" Grid.Row="6" HorizontalAlignment="Right" Margin="5" Command="{Binding CancelPage}"></Button>

@@ -13,14 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace BDAdmin
+namespace BDAdmin.Modal.Modal
 {
     /// <summary>
-    /// Logique d'interaction pour HomePage.xaml
+    /// Logique d'interaction pour DialogChooseParentView.xaml
     /// </summary>
-    public partial class HomePage : Page
+    public partial class DialogChooseParentView : UserControl
     {
-        public HomePage()
+        public DialogChooseParentView()
         {
             InitializeComponent();
         }

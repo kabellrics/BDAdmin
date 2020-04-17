@@ -1,0 +1,229 @@
+﻿<Page x:Class="BDAdmin.Views.WorkingView"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:vms="clr-namespace:BDAdmin.ViewModel.Model"
+      mc:Ignorable="d"
+      xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        xmlns:command="http://www.galasoft.ch/mvvmlight"
+      DataContext="{Binding Working, Source={StaticResource Locator}}"
+      Title="WorkingView">
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <command:EventToCommand Command="{Binding LoadedCommand}" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+    <Grid>
+        <Grid.Background>
+            <VisualBrush>
+                <VisualBrush.Visual>
+                    <Image Source="{Binding BckImg}" Stretch="UniformToFill">
+                        <Image.Effect>
+                            <BlurEffect Radius="25"></BlurEffect>
+                        </Image.Effect>
+                    </Image>
+                </VisualBrush.Visual>
+            </VisualBrush>
+        </Grid.Background>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*"></RowDefinition>
+            <RowDefinition Height="10*"></RowDefinition>
+            <RowDefinition Height="1*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+            <Button Command="{Binding GoBackPage}" HorizontalAlignment="Left">
+                <Image Source="/circled-left.png"></Image>
+                <Button.Background>
+                    <SolidColorBrush Color="WhiteSmoke" Opacity="0.25" />
+                </Button.Background>
+                <Button.Style>
+                    <Style TargetType="Button">
+                        <Style.Triggers>
+                            <Trigger Property ="IsMouseOver" Value="True">
+                                <Setter Property= "Background" Value="WhiteSmoke"/>
+                                <Setter Property="Opacity" Value="0.25"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+            </Button>
+        </Grid>
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"></ColumnDefinition>
+                <ColumnDefinition Width="8*"></ColumnDefinition>
+                <ColumnDefinition Width="1*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height=".25*"></RowDefinition>
+                <RowDefinition Height="3*"></RowDefinition>
+                <RowDefinition Height=".25*"></RowDefinition>
+                <RowDefinition Height="12*"></RowDefinition>
+                <RowDefinition Height=".25*"></RowDefinition>
+                <RowDefinition Height="1.5*"></RowDefinition>
+                <RowDefinition Height=".25*"></RowDefinition>
+            </Grid.RowDefinitions>
+            <!--DataType="{x:Type vms:SerieViewModel}"-->
+            <TreeView Grid.Row="3" Grid.Column="1" ItemsSource="{Binding Series}" Background="Transparent">
+                <TreeView.ItemContainerStyle>
+                    <Style TargetType="TreeViewItem">
+                        <Setter Property="IsExpanded" Value="{Binding Path=IsExpanded, Mode=TwoWay}"/>
+                    </Style>
+                </TreeView.ItemContainerStyle>                
+                <TreeView.Resources>
+                    <HierarchicalDataTemplate DataType="{x:Type vms:SerieViewModel}" ItemsSource="{Binding Childs}">
+                        <StackPanel Orientation="Horizontal" Margin="10">
+                            <StackPanel.Background>
+                                <SolidColorBrush Color="WhiteSmoke" Opacity="0.75"></SolidColorBrush>
+                            </StackPanel.Background>
+                            <CheckBox VerticalAlignment="Center"></CheckBox>
+                            <Image Height="108" Width="192" Stretch="UniformToFill" Source="{Binding Image}"></Image>
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height=".5*"/>
+                                    <RowDefinition Height="2*"/>
+                                    <RowDefinition Height=".5*"/>
+                                    <RowDefinition Height="2*"/>
+                                    <RowDefinition Height=".5*"/>
+                                </Grid.RowDefinitions>
+                                <Button Grid.Row="1" Margin="5" Content="Modier" Command="{Binding ChangeImageForSerie}"></Button>
+                                <Button Grid.Row="3" Margin="5" Content="Changer le parent" Command="{Binding ChangeParentCommand}"></Button>
+                            </Grid>
+                            <Grid Height="108">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition />
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+                                <Viewbox Grid.Column="0">
+                                    <Label Content="{Binding Name}"></Label>
+                                </Viewbox>
+                                <Viewbox Grid.Column="1">
+                                    <Label Content="{Binding NumberOfChild}" Foreground="Blue"></Label>
+                                </Viewbox>
+                            </Grid>
+                        </StackPanel>
+                    </HierarchicalDataTemplate>
+                </TreeView.Resources>
+                <!--<DataTemplate DataType="{x:Type vms:FichierViewModel}">
+                        <StackPanel Orientation="Horizontal">
+                            <Image Height="108" Width="192" Stretch="Fill" Source="{Binding Image}"></Image>
+                            <Grid Height="108">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition />
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+                                <Viewbox Grid.Column="0">
+                                    <Label Content="{Binding Name}"></Label>
+                                </Viewbox>
+                                <Viewbox Grid.Column="1">
+                                    <Label Content="{Binding NumberOfChild}" Foreground="Blue"></Label>
+                                </Viewbox>
+                            </Grid>
+                        </StackPanel>
+                    </DataTemplate>-->
+
+            </TreeView>
+            <!--<DataGrid SelectedIndex="{Binding SelectedIndex}" Grid.Row="2" Grid.Column="1" AutoGenerateColumns="False" ItemsSource="{Binding Series}" RowHeight="108">
+                <DataGrid.Columns>
+                    <DataGridTemplateColumn Width="25">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <CheckBox IsChecked="{Binding IsSelected, Mode=TwoWay}" VerticalAlignment="Center" HorizontalAlignment="Center"></CheckBox>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn Header="Image" Width="192">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button Background="White">
+                                    <Image Source="{Binding Image}" Stretch="Fill"></Image>
+                                </Button>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn Header="Name" Width="*">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                                    <Viewbox HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                                        <TextBox Text="{Binding Name, Mode=TwoWay}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" BorderBrush="Transparent">
+                                            <TextBox.Style>
+                                                <Style BasedOn="{x:Null}" TargetType="{x:Type TextBox}">
+                                                    <Setter Property="Template">
+                                                        <Setter.Value>
+                                                            <ControlTemplate TargetType="{x:Type TextBox}">
+                                                                <Border x:Name="bg" BorderBrush="Transparent" BorderThickness="1">
+                                                                    <ScrollViewer x:Name="PART_ContentHost" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
+                                                                </Border>
+                                                                <ControlTemplate.Triggers>
+                                                                    <Trigger Property="IsMouseOver" Value="True">
+                                                                        <Setter Property="BorderBrush" TargetName="bg" Value="Transparent"/>
+                                                                    </Trigger>
+
+                                                                    <Trigger Property="IsFocused" Value="True">
+                                                                        <Setter Property="BorderBrush" TargetName="bg" Value="Transparent"/>
+                                                                    </Trigger>
+                                                                </ControlTemplate.Triggers>
+                                                            </ControlTemplate>
+                                                        </Setter.Value>
+                                                    </Setter>
+                                                </Style>
+                                            </TextBox.Style>
+                                        </TextBox>
+                                    </Viewbox>
+                                </Grid>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn Header="Nombre d'éléments fils" Width="*">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Viewbox>
+                                    <Label Content="{Binding NumberOfChild}"></Label>
+                                </Viewbox>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn Header="Parent" Width="192">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button Background="White">
+                                    <Image Source="{Binding ParentImage}" Stretch="Fill"></Image>
+                                </Button>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                </DataGrid.Columns>
+            </DataGrid>-->
+            
+            <Grid Grid.Column="1" Grid.Row="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height=".5*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height=".5*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height=".5*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width=".5*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width=".5*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width=".5*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width=".5*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width=".5*"/>
+                </Grid.ColumnDefinitions>
+                <Button Content="Créer une nouvelle série" Grid.Row="1" Grid.Column="1"  HorizontalAlignment="Right" Margin="5" Command="{Binding CreatePage}"></Button>
+                <!--<Button Content="Modifier une série" Grid.Row="1" Grid.Column="3" HorizontalAlignment="Right" Margin="5" Command="{Binding ChangeImageForSerie}"></Button>
+                <Button Content="Changer le parent d'une série" Grid.Row="1" Grid.Column="5" HorizontalAlignment="Right" Margin="5" Command="{Binding ChangeParentCommand}"></Button>-->
+                <Button Content="Ajouter un fichier" Grid.Row="3" Grid.Column="1" HorizontalAlignment="Right" Margin="5"></Button>
+                <Button Content="Scanner un dossier" Grid.Row="3" Grid.Column="3" HorizontalAlignment="Right" Margin="5"></Button>
+            </Grid>
+            <Button Content="Save" Grid.Column="1" Grid.Row="5" HorizontalAlignment="Left" Margin="5" Command="{Binding SaveCommand}"></Button>
+            <Button Content="Cancel" Grid.Column="1" Grid.Row="5" HorizontalAlignment="Right" Margin="5" Command="{Binding GoBackPage}"></Button>
+        </Grid>
+    </Grid>
+</Page>

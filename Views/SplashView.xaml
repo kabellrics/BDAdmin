@@ -1,0 +1,52 @@
+﻿<Page x:Class="BDAdmin.Views.SplashView"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:BDAdmin.Views"
+      xmlns:converter="clr-namespace:BDAdmin.Converter"
+      mc:Ignorable="d" 
+      DataContext="{Binding Splash, Source={StaticResource Locator}}"
+      Title="SplashView">
+    <Page.Resources>
+        <converter:ByteArrayToBitmapImageConverter x:Key="ByteArrayToBitmapImageConverter" />
+    </Page.Resources>
+    <Grid>
+        <Grid.Background>
+            <VisualBrush>
+                <VisualBrush.Visual>
+                    <Image Source="{Binding BckImg}" Stretch="UniformToFill">
+                        <Image.Effect>
+                            <BlurEffect Radius="25"></BlurEffect>
+                        </Image.Effect>
+                    </Image>
+                </VisualBrush.Visual>
+            </VisualBrush>
+        </Grid.Background>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Button Grid.Row="2" Command="{Binding MoveToSeriePage}" BorderBrush="Transparent">
+            <Button.Style>
+                <Style TargetType="Button">
+                    <Style.Triggers>
+                        <Trigger Property ="IsMouseOver" Value="True">
+                            <Setter Property= "Background" Value="WhiteSmoke"/>
+                            <Setter Property="Opacity" Value="0.5"/>
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </Button.Style>
+            <Button.Background>
+                <SolidColorBrush Color="WhiteSmoke" Opacity="0.75" />
+            </Button.Background>
+            <Viewbox>
+                <Label Content="{Binding SerieBT}"></Label>
+            </Viewbox>
+        </Button>
+    </Grid>
+</Page>

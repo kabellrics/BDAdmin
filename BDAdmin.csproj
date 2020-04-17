@@ -94,37 +94,39 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Converter\ByteArrayToBitmapImageConverter.cs" />
+    <Compile Include="Converter\StringToVisibilityConverter.cs" />
     <Compile Include="CreateSeriePage.xaml.cs">
       <DependentUpon>CreateSeriePage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="FichierPage.xaml.cs">
-      <DependentUpon>FichierPage.xaml</DependentUpon>
+    <Compile Include="Modal\Modal\DialogChooseParentView.xaml.cs">
+      <DependentUpon>DialogChooseParentView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="HomePage.xaml.cs">
-      <DependentUpon>HomePage.xaml</DependentUpon>
+    <Compile Include="Modal\Modal\DialogWindow.xaml.cs">
+      <DependentUpon>DialogWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Modal\Modal\DialogYesNoView.xaml.cs">
+      <DependentUpon>DialogYesNoView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modal\ViewModel\DialogChooseParentViewModel.cs" />
+    <Compile Include="Modal\ViewModel\DialogViewModel.cs" />
     <Compile Include="Navigation\FrameNavigationService.cs" />
     <Compile Include="Navigation\IFrameNavigationService.cs" />
-    <Compile Include="SeriePage.xaml.cs">
-      <DependentUpon>SeriePage.xaml</DependentUpon>
-    </Compile>
+    <Compile Include="Modal\Implémentation\DialogService.cs" />
+    <Compile Include="Modal\Interface\IDialogService.cs" />
     <Compile Include="ViewModel\CreateSerieViewModel.cs" />
-    <Compile Include="ViewModel\DisplayingFichierViewModel.cs" />
-    <Compile Include="ViewModel\DisplayingSerieViewModel.cs" />
-    <Compile Include="ViewModel\FichierViewModel.cs" />
-    <Compile Include="ViewModel\HomeViewModel.cs" />
+    <Compile Include="ViewModel\Model\FichierViewModel.cs" />
+    <Compile Include="ViewModel\Model\SerieViewModel.cs" />
     <Compile Include="ViewModel\MenuViewModel.cs" />
-    <Compile Include="ViewModel\SeriesViewModel.cs" />
+    <Compile Include="ViewModel\SplashViewModel.cs" />
+    <Compile Include="ViewModel\WorkingViewModel.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
+    <Compile Include="Views\SplashView.xaml.cs">
+      <DependentUpon>SplashView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\WorkingView.xaml.cs">
+      <DependentUpon>WorkingView.xaml</DependentUpon>
+    </Compile>
     <Page Include="CreateSeriePage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="FichierPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="HomePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -140,7 +142,23 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="SeriePage.xaml">
+    <Page Include="Modal\Modal\DialogChooseParentView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Modal\Modal\DialogWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Modal\Modal\DialogYesNoView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\SplashView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\WorkingView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -173,17 +191,20 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Business\Business.csproj">
-      <Project>{885067bd-e889-4fe4-be55-13ba9a457bcb}</Project>
-      <Name>Business</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Common\Common.csproj">
-      <Project>{0d0e5d36-9ab0-4cce-af37-85d22c3df3e5}</Project>
-      <Name>Common</Name>
-    </ProjectReference>
+    <Resource Include="circled-left.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="circled-left.png" />
+    <Folder Include="ModalView\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="Business\Business.csproj">
+      <Project>{64e1a94f-f87e-4f85-8d62-1e4a8bb24ee7}</Project>
+      <Name>Business</Name>
+    </ProjectReference>
+    <ProjectReference Include="Common\Common.csproj">
+      <Project>{cadd1d42-1907-45b4-a607-9dba3c55184b}</Project>
+      <Name>Common</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
