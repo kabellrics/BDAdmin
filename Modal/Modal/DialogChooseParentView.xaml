@@ -28,12 +28,12 @@
             <RowDefinition Height=".5*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="1.3*"/>
+            <ColumnDefinition Width="1.2*"/>
             <ColumnDefinition Width="2*"/>
             <ColumnDefinition Width="4*"/>
             <ColumnDefinition Width="4*"/>
             <ColumnDefinition Width="2*"/>
-            <ColumnDefinition Width="1.3*"/>
+            <ColumnDefinition Width="1.2*"/>
         </Grid.ColumnDefinitions>
         <ScrollViewer VerticalScrollBarVisibility="Auto" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="4">
             <ListView ItemsSource="{Binding SeriesChoiceForFather}" IsSynchronizedWithCurrentItem="True" SelectedIndex="{Binding SelectedIndex, Mode=TwoWay}" SelectionMode="Single" Background="WhiteSmoke" ScrollViewer.HorizontalScrollBarVisibility="Disabled">

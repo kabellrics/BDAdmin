@@ -15,6 +15,24 @@
         <DataTemplate DataType="{x:Type vms:DialogChooseParentViewModel}">
             <views:DialogChooseParentView/>
         </DataTemplate>
+        <DataTemplate DataType="{x:Type vms:AddUpdateSerieViewModel}">
+            <views:AddUpdateSerie/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vms:AddSingleComicViewModel}">
+            <views:AddSingleComic/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vms:ExtractFileViewModel}">
+            <views:ExtractFile/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vms:ResolveIssueViewModel}">
+            <views:ResolveIssue/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vms:ShowImageViewModel}">
+            <views:ShowImage/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vms:AddMultiComicViewModel}">
+            <views:AddMultiComic/>
+        </DataTemplate>
     </Window.Resources>
     <ContentPresenter x:Name="ContentPresenter" Content="{Binding}"></ContentPresenter>
 </Window>

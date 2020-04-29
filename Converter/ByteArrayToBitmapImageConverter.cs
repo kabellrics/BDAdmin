@@ -22,8 +22,6 @@ namespace BDAdmin.Converter
             return img;
         }
 
-
-
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             BitmapImage img = new BitmapImage();

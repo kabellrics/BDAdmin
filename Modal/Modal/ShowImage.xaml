@@ -1,0 +1,15 @@
+﻿<UserControl x:Class="BDAdmin.Modal.Modal.ShowImage"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:BDAdmin.Modal.Modal"
+             mc:Ignorable="d"
+             Height="1080" Width="1920"
+             Background="DarkGray">
+    <Grid>
+        <Button HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  Command="{Binding YesCommand}"  CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=Window}}">
+            <Image Source="{Binding Data}" Stretch="Uniform"></Image>
+        </Button>  
+    </Grid>
+</UserControl>

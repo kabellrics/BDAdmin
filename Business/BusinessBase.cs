@@ -10,11 +10,13 @@ namespace Business
     {
         protected DBConnectorFichier ConnectorFichier;
         protected DBConnectorSerie ConnectorSerie;
+        protected DBConnectorPage ConnectorPage;
 
         public BusinessBase()
         {
             ConnectorSerie = new DBConnectorSerie();
             ConnectorFichier = new DBConnectorFichier();
+            ConnectorPage = new DBConnectorPage();
             MyMapper.Initialize();
             Notifications.Initialize();
         }

@@ -4,17 +4,13 @@ using System.Text;
 
 namespace Common
 {
-    public class Fichier : Serie
+    public class Fichier
     {
-        //public int ID;
-        //public string Name;
+        public int ID;
+        public string Name;
         public Nullable<int> Order;
-        public byte[] Data;
-        //public string Extension;
-        public Nullable<int> Year;
-        //public byte[] Image;
-        //public string ImgExtension;
-        //public Nullable<int> ParentID;
-        public Nullable<int> CollectionID;
+        public byte[] Image;
+        public Nullable<int> ParentID;
+        public string Collection;
     }
 }

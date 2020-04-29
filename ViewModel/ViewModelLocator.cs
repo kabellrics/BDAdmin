@@ -51,7 +51,9 @@ namespace BDAdmin.ViewModel
             SimpleIoc.Default.Register<IBusinessFichier, BusinessFichier>();
             SimpleIoc.Default.Register<IBusinessFile, BusinessFile>();
             SimpleIoc.Default.Register<IBusinessSerie, BusinessSerie>();
+            SimpleIoc.Default.Register<IBusinessPage, BusinessPage>();
             SimpleIoc.Default.Register<IBusinessBackground, BusinessBackground>();
+            SimpleIoc.Default.Register<IBusinessComicVine, BusinessComicVine>();
 
             SimpleIoc.Default.Register<MenuViewModel>();
             SimpleIoc.Default.Register<FichierViewModel>();
@@ -67,7 +69,6 @@ namespace BDAdmin.ViewModel
             bHNavigationService.Configure("Main", new Uri("../MainWindow.xaml", UriKind.Relative));
             bHNavigationService.Configure("Home", new Uri("../HomePage.xaml", UriKind.Relative));
             bHNavigationService.Configure("Working", new Uri("../Views/WorkingView.xaml", UriKind.Relative));
-            bHNavigationService.Configure("CreateSerie", new Uri("../CreateSeriePage.xaml", UriKind.Relative));
             bHNavigationService.Configure("Splash", new Uri("../Views/SplashView.xaml", UriKind.Relative));
             SimpleIoc.Default.Register<IFrameNavigationService>(() => bHNavigationService);
         }
@@ -90,6 +91,14 @@ namespace BDAdmin.ViewModel
         public static IBusinessFile BusinessFile()
         {
             return SimpleIoc.Default.GetInstance<IBusinessFile>();
+        }
+        public static IBusinessPage BusinessPage()
+        {
+            return SimpleIoc.Default.GetInstance<IBusinessPage>();
+        }
+        public static IBusinessComicVine BusinessComicVine()
+        {
+            return SimpleIoc.Default.GetInstance<IBusinessComicVine>();
         }
         //public static ViewModelLocator Instance
         //{

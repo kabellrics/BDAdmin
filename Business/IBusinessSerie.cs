@@ -16,5 +16,6 @@ namespace Business
         Task<IEnumerable<int>> GetAllAncestor(Serie serie);
         Task<IEnumerable<int>> GetAllDescendant(Serie serie);
         Task<Serie> FirstAncestor(Serie node);
+        Task<Serie> GetSerieAsync(Serie serie);
     }
 }

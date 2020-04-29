@@ -24,6 +24,10 @@ namespace Business
                 await Update(serie);
             }
         }
+        public async Task<Serie> GetSerieAsync(Serie serie)
+        {
+            return MyMapper.Mapper.Map<Serie>(await ConnectorSerie.Get(MyMapper.Mapper.Map<DBSerie>(serie)));
+        }
         public async Task<Serie> GetById(int Id)
         {
             return MyMapper.Mapper.Map<Serie>(await ConnectorSerie.Get(Id));

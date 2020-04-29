@@ -12,11 +12,77 @@ namespace DBConnector
     public class DBConnectorSerie: DBConnector
     {
         public DBConnectorSerie() : base(){ }
+        public async Task<bool> Exist(DBSerie series)
+        {
+            try
+            {
+                connection.Close();
+                await connection.OpenAsync();
+                StringBuilder stringBuilder = new StringBuilder();
+                stringBuilder.AppendLine("SELECT Id, Name, Image,Extension, IDParent ");
+                stringBuilder.AppendLine("FROM Serie ");
+                stringBuilder.AppendLine($"WHERE Name = '{series.Name}'");
+                stringBuilder.AppendLine($"AND IDParent = {series.ParentID}");
+                var cmd = new MySqlCommand();
+                cmd.Connection = connection;
+                cmd.CommandText = stringBuilder.ToString();
+                var result = await cmd.ExecuteReaderAsync();
+                if (result.HasRows)
+                {
+                    return true;
+                }
+
+                return false;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                connection.Close();
+            }
+        }
+        public async Task<DBSerie> Get(DBSerie series)
+        {
+            try
+            {
+                connection.Close();
+                await connection.OpenAsync();
+                StringBuilder stringBuilder = new StringBuilder();
+                stringBuilder.AppendLine("SELECT Id, Name, Image,Extension, IDParent ");
+                stringBuilder.AppendLine("FROM Serie ");
+                stringBuilder.AppendLine($"WHERE Name = '{series.Name}'");
+                stringBuilder.AppendLine($"AND IDParent = {series.ParentID}");
+                var cmd = new MySqlCommand();
+                cmd.Connection = connection;
+                cmd.CommandText = stringBuilder.ToString();
+                var result = await cmd.ExecuteReaderAsync();
+                if (result.HasRows)
+                {
+                    if (await result.ReadAsync())
+                    {
+                        series = ExtractDataFromDataReader(result);
+                    }
+                }
+
+                return series;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                connection.Close();
+            }
+        }
         public async Task<DBSerie> Get(int Id)
         {
             try
             {
                 DBSerie series = new DBSerie();
+                connection.Close();
                 await connection.OpenAsync();
                 StringBuilder stringBuilder = new StringBuilder();
                 stringBuilder.AppendLine("SELECT Id, Name, Image,Extension, IDParent ");
@@ -50,6 +116,7 @@ namespace DBConnector
             List<DBSerie> series = new List<DBSerie>();
             try
             {
+                connection.Close();
                 await connection.OpenAsync();
                 StringBuilder stringBuilder = new StringBuilder();
                 stringBuilder.AppendLine("SELECT Id, Name, Image,Extension, IDParent ");
@@ -82,6 +149,7 @@ namespace DBConnector
             List<DBSerie> series = new List<DBSerie>();
             try
             {
+                connection.Close();
                 await connection.OpenAsync();
                 StringBuilder stringBuilder = new StringBuilder();
                 stringBuilder.AppendLine("SELECT Id, Name, Image,Extension, IdParent ");
@@ -97,6 +165,7 @@ namespace DBConnector
                         series.Add(ExtractDataFromDataReader(result));
                     }
                 }
+                cmd.Dispose();
                 return series;
             }
             catch (Exception ex)
@@ -113,6 +182,7 @@ namespace DBConnector
             List<int> descendants = new List<int>();
             try
             {
+                connection.Close();
                 await connection.OpenAsync();
                 StringBuilder stringBuilder = new StringBuilder();
                 stringBuilder.AppendLine($"select id, name, IdParent ");
@@ -163,6 +233,7 @@ namespace DBConnector
             List<int> ancestor = new List<int>();
             try
             {
+                connection.Close();
                 await connection.OpenAsync();
                 StringBuilder stringBuilder = new StringBuilder();
                 stringBuilder.AppendLine($"SELECT @r as _id, ");
@@ -206,6 +277,7 @@ namespace DBConnector
             List<DBSerie> series = new List<DBSerie>();
             try
             {
+                connection.Close();
                 await connection.OpenAsync();
                 StringBuilder stringBuilder = new StringBuilder();
                 stringBuilder.AppendLine("SELECT Id, Name, Image,Extension,  IdParent ");
@@ -237,7 +309,7 @@ namespace DBConnector
         {
             try
             {
-                DBSerie dbSerie = new DBSerie();
+                connection.Close();
                 await connection.OpenAsync();
                 StringBuilder stringBuilder = new StringBuilder();
                 var cmd = new MySqlCommand();
@@ -285,7 +357,7 @@ namespace DBConnector
             try
             {
                 DBSerie dbSerie = new DBSerie();
-                
+                connection.Close();
                 await connection.OpenAsync();
                 var cmd = new MySqlCommand();
                 cmd.Connection = connection;
@@ -332,6 +404,7 @@ namespace DBConnector
         {
             try
             {
+                connection.Close();
                 await connection.OpenAsync();
                 StringBuilder stringBuilder = new StringBuilder();
                 stringBuilder.AppendLine("DELETE FROM Serie ");
@@ -365,56 +438,6 @@ namespace DBConnector
                 dbSerie.ParentID = result.GetInt32(4);
             return dbSerie;
         }
-        public static byte[] ReadToEnd(System.IO.Stream stream)
-        {
-            long originalPosition = 0;
 
-            if (stream.CanSeek)
-            {
-                originalPosition = stream.Position;
-                stream.Position = 0;
-            }
-
-            try
-            {
-                byte[] readBuffer = new byte[4096];
-
-                int totalBytesRead = 0;
-                int bytesRead;
-
-                while ((bytesRead = stream.Read(readBuffer, totalBytesRead, readBuffer.Length - totalBytesRead)) > 0)
-                {
-                    totalBytesRead += bytesRead;
-
-                    if (totalBytesRead == readBuffer.Length)
-                    {
-                        int nextByte = stream.ReadByte();
-                        if (nextByte != -1)
-                        {
-                            byte[] temp = new byte[readBuffer.Length * 2];
-                            Buffer.BlockCopy(readBuffer, 0, temp, 0, readBuffer.Length);
-                            Buffer.SetByte(temp, totalBytesRead, (byte)nextByte);
-                            readBuffer = temp;
-                            totalBytesRead++;
-                        }
-                    }
-                }
-
-                byte[] buffer = readBuffer;
-                if (readBuffer.Length != totalBytesRead)
-                {
-                    buffer = new byte[totalBytesRead];
-                    Buffer.BlockCopy(readBuffer, 0, buffer, 0, totalBytesRead);
-                }
-                return buffer;
-            }
-            finally
-            {
-                if (stream.CanSeek)
-                {
-                    stream.Position = originalPosition;
-                }
-            }
-        }
     }
 }

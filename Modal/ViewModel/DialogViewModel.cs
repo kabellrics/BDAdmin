@@ -12,7 +12,7 @@ namespace BDAdmin.Modal.ViewModel
 {
     public class DialogViewModel : ViewModelBase
     {
-        private string _title;
+        protected string _title;
         public string Title
         {
             get { return _title; }
@@ -23,35 +23,35 @@ namespace BDAdmin.Modal.ViewModel
             }
         }
 
-        private string _message;
+        protected string _message;
         public string Message
         {
             get { return _message; }
             set { _message = value;RaisePropertyChanged(); }
         }
 
-        private string _contentButtonYes;
+        protected string _contentButtonYes;
         public string ContentButtonYes
         {
             get { return _contentButtonYes; }
             set { _contentButtonYes = value; RaisePropertyChanged(); }
         }
 
-        private string _contentButtonNo;
+        protected string _contentButtonNo;
         public string ContentButtonNo
         {
             get { return _contentButtonNo; }
             set { _contentButtonNo = value; RaisePropertyChanged(); }
         }
 
-        private string _contentButtonCancel;
+        protected string _contentButtonCancel;
         public string ContentButtonCancel
         {
             get { return _contentButtonCancel; }
             set { _contentButtonCancel = value; RaisePropertyChanged(); }
         }
 
-        private ICommand _yesCommand = null;
+        protected ICommand _yesCommand = null;
         public ICommand YesCommand
         {
             get
@@ -60,7 +60,7 @@ namespace BDAdmin.Modal.ViewModel
             }
         }
 
-        private ICommand _NoCommand = null;
+        protected ICommand _NoCommand = null;
         public ICommand NoCommand
         {
             get
@@ -69,7 +69,7 @@ namespace BDAdmin.Modal.ViewModel
             }
         }
 
-        private ICommand _CancelCommand = null;
+        protected ICommand _CancelCommand = null;
         public ICommand CancelCommand
         {
             get
@@ -84,15 +84,15 @@ namespace BDAdmin.Modal.ViewModel
                 dialog.DialogResult = result;
         }
 
-        private void OnYesClicked(object parameter)
+        protected void OnYesClicked(object parameter)
         {
             CloseDialogWithResult(parameter as Window, true);
         }
-        private void OnNoClicked(object parameter)
+        protected void OnNoClicked(object parameter)
         {
             CloseDialogWithResult(parameter as Window, false);
         }
-        private void OnCancelClicked(object parameter)
+        protected void OnCancelClicked(object parameter)
         {
             CloseDialogWithResult(parameter as Window, false);
         }

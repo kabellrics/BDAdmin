@@ -24,6 +24,10 @@ namespace Business
                 await Update(fichier);
             }
         }
+        public async Task<Fichier> GetFichierAsync(Fichier fichier)
+        {
+            return MyMapper.Mapper.Map<Fichier>(await ConnectorFichier.Get(MyMapper.Mapper.Map<DBFichier>(fichier)));
+        }
         public async Task<Fichier> GetById(int Id)
         {
             return MyMapper.Mapper.Map<Fichier>(await ConnectorFichier.Get(Id));

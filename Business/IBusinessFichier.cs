@@ -13,5 +13,6 @@ namespace Business
         Task<IEnumerable<Fichier>> GetAllByIdParent(int? idparent);
         Task<Fichier> GetById(int Id);
         Task Update(Fichier newvalue);
+        Task<Fichier> GetFichierAsync(Fichier fichier);
     }
 }

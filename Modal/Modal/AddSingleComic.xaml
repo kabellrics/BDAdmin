@@ -1,0 +1,121 @@
+﻿<UserControl x:Class="BDAdmin.Modal.Modal.AddSingleComic"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:BDAdmin.Modal.Modal"
+             mc:Ignorable="d" 
+             xmlns:converter="clr-namespace:BDAdmin.Converter"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        xmlns:command="http://www.galasoft.ch/mvvmlight"
+             d:DesignHeight="1000" d:DesignWidth="1000"
+             Height="1000" Width="1000"
+             Background="DarkGray">
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <command:EventToCommand Command="{Binding LoadedCommand}" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height=".5*"></RowDefinition>
+            <RowDefinition Height="12*"></RowDefinition>
+            <RowDefinition Height=".5*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="5.3*"/>
+                <RowDefinition Height="1.5*"/>
+                <RowDefinition Height="10*"/>
+                <RowDefinition Height=".5*"/>
+                <RowDefinition Height="2*"/>
+            </Grid.RowDefinitions>
+            <Viewbox Grid.Row="0">
+                <Label Content="{Binding FilePath}"></Label>
+            </Viewbox>
+            <Grid Grid.Row="1" Margin="25">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*"></ColumnDefinition>
+                    <ColumnDefinition Width="3*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Button Grid.Column="0" Command="{Binding ShowImgCommand}" CommandParameter="{Binding Image}">
+                    <Image Grid.Column="0" Stretch="Uniform" Source="{Binding Image}"></Image>
+                </Button>
+                <StackPanel Grid.Column="1" Orientation="Vertical">
+                    <StackPanel Orientation="Horizontal">
+                        <StackPanel Orientation="Vertical" Margin="10">
+                            <Viewbox HorizontalAlignment="Left">
+                                <Label Content="Ordre :" HorizontalAlignment="Left"></Label>
+                            </Viewbox>
+                            <TextBox Text="{Binding Ordre, Mode=TwoWay}" Width="75" Background="DarkGray"></TextBox>
+                        </StackPanel>
+                        <StackPanel Orientation="Vertical" Margin="10">
+                            <Viewbox HorizontalAlignment="Left">
+                                <Label Content="Titre :" HorizontalAlignment="Left"></Label>
+                            </Viewbox>
+                            <TextBox Text="{Binding Name, Mode=TwoWay}" MinWidth="300" Background="DarkGray"></TextBox>
+                            <Viewbox HorizontalAlignment="Left">
+                                <Label Content="Collection :" HorizontalAlignment="Left"></Label>
+                            </Viewbox>
+                            <TextBox Text="{Binding Collection, Mode=TwoWay}" MinWidth="300" Background="DarkGray"></TextBox>
+                        </StackPanel>
+                    </StackPanel>
+                    <Button Content="Résoudre" Margin="5" Command="{Binding ResolveComicVineCommand}"></Button>
+                    <Button Content="Charger les pages" Command="{Binding LoadingPagesCommand}" Margin="5"></Button>
+                    <Button Content="Utiliser la première page comme couverture" Command="{Binding LoadCoverCommand}" Margin="5"></Button>
+                </StackPanel>
+            </Grid>
+            <Grid Grid.Row="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <ComboBox Grid.Column="0" ItemsSource="{Binding Series}" SelectedItem="{Binding SeriesSelected,Mode=TwoWay}" Margin="75,20,75,20">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <Image Height="27" Width="48" Stretch="UniformToFill" Source="{Binding Image}"></Image>
+                                <TextBlock Text="{Binding Path=Name}" VerticalAlignment="Center"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+                <Button Grid.Column="1" Content="Supprimer les pages séléctionné" Command="{Binding DeleteFromPage}" Margin="75,20,75,20"></Button>
+            </Grid>
+            <ListView Margin="10" Grid.Row="3" ItemsSource="{Binding Pages}">
+                <ListView.Background>
+                    <SolidColorBrush Color="WhiteSmoke" Opacity="0.85" />
+                </ListView.Background>
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal" Height="250">
+                            <CheckBox IsChecked="{Binding IsChecked,Mode=TwoWay}" VerticalAlignment="Center"></CheckBox>
+                            <Viewbox>
+                                <Label Content="{Binding Ordre,StringFormat=Page {0}}"></Label>
+                            </Viewbox>
+                            <Image Height="225" Width="225" Stretch="Uniform" Source="{Binding Image}">                                
+                            </Image>
+                        </StackPanel>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+            <Grid Grid.Row="5">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Button Grid.Column="0" Margin="75,20,75,20" Command="{Binding YesCommand}"  CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=Window}}">
+                    <Viewbox>
+                        <Label Content="Sauvegarder et quitter"></Label>
+                    </Viewbox>
+                </Button>
+                <Button Grid.Column="1" Margin="75,20,75,20" Command="{Binding CancelCommand}"  CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=Window}}">
+                    <Viewbox>
+                        <Label Content="Annuler"></Label>                        
+                    </Viewbox>
+                </Button>
+            </Grid>
+        </Grid>
+    </Grid>
+</UserControl>

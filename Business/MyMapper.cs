@@ -23,6 +23,8 @@ namespace Business
                     .ForMember(destination => destination.Extension, opts => opts.MapFrom(source => source.ImgExtension));
                     cfg.CreateMap<DBSerie, Serie>()
                     .ForMember(destination => destination.ImgExtension, opts => opts.MapFrom(source => source.Extension));
+                    cfg.CreateMap<Page, DBPage>();
+                    cfg.CreateMap<DBPage, Page>();
                 });
 
                 Mapper = config.CreateMapper();
